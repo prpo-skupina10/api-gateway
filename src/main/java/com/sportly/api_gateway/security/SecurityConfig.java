@@ -31,6 +31,17 @@ public class SecurityConfig {
                     "/api/charts/redoc",
                     "/api/charts/static/**"
                 ).permitAll()
+                .pathMatchers(
+                    "/api/leagues/swagger-ui/**",
+                    "/api/teams/swagger-ui/**",
+                    "/api/players/swagger-ui/**",
+                    "/api/import/swagger-ui/**",
+
+                    "/api/leagues/v3/api-docs/**",
+                    "/api/teams/v3/api-docs/**",
+                    "/api/players/v3/api-docs/**",
+                    "/api/import/v3/api-docs/**"
+                ).permitAll()
                 .anyExchange().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> {}))

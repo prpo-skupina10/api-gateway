@@ -1,10 +1,41 @@
 server:
   port: 8080
+  forward-headers-strategy: framework
 
 spring:
   cloud:
     gateway:
       routes:
+
+        - id: league-swagger
+          uri: http://league-service:8081
+          predicates:
+            - Path=/api/leagues/swagger-ui/**,/api/leagues/v3/api-docs/**
+          filters:
+            - StripPrefix=2
+            - RewriteLocationResponseHeader=AS_IN_REQUEST, Location, /api/leagues
+
+        - id: team-swagger
+          uri: http://team-service:8084
+          predicates:
+            - Path=/api/teams/swagger-ui/**,/api/teams/v3/api-docs/**
+          filters:
+            - StripPrefix=2
+
+        - id: player-swagger
+          uri: http://player-service:8082
+          predicates:
+            - Path=/api/players/swagger-ui/**,/api/players/v3/api-docs/**
+          filters:
+            - StripPrefix=2
+
+        - id: import-swagger
+          uri: http://data-import-service:8085
+          predicates:
+            - Path=/api/import/swagger-ui/**,/api/import/v3/api-docs/**
+          filters:
+            - StripPrefix=2
+
         - id: user-service-auth
           uri: http://user-service:8089
           predicates:
@@ -40,6 +71,13 @@ spring:
           filters:
             - StripPrefix=1
 
+        - id: data-import-service
+          uri: http://data-import-service:8085
+          predicates:
+            - Path=/api/import/**
+          filters:
+            - StripPrefix=1
+
         - id: visualization-docs
           uri: http://visualization-service:8000
           predicates:
@@ -65,12 +103,5 @@ spring:
           uri: http://visualization-service:8000
           predicates:
             - Path=/api/charts/**
-          filters:
-            - StripPrefix=1
-
-        - id: data-import-service
-          uri: http://data-import-service:8085
-          predicates:
-            - Path=/api/import/**
           filters:
             - StripPrefix=1
