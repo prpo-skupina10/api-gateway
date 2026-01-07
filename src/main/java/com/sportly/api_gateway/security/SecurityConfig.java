@@ -44,6 +44,14 @@ public class SecurityConfig {
                     "/api/import/v3/api-docs/**",
                     "/api/users/v3/api-docs/**"
                 ).permitAll()
+                .pathMatchers(
+                    "/api/users/health",
+                    "/api/players/health",
+                    "/api/teams/health",
+                    "/api/leagues/health",
+                    "/api/import/health",
+                    "/health"
+                ).permitAll()
                 .anyExchange().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> {}))
