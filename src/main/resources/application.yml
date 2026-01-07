@@ -76,7 +76,7 @@ spring:
           predicates:
             - Path=/api/leagues/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=2
 
         - id: data-import-service
           uri: http://data-import-service:8085
@@ -96,8 +96,6 @@ spring:
           uri: http://visualization-service:8000
           predicates:
             - Path=/api/charts/static/**
-          filters:
-            - StripPrefix=2
 
         - id: visualization-health
           uri: http://visualization-service:8000
@@ -111,4 +109,4 @@ spring:
           predicates:
             - Path=/api/charts/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=2
