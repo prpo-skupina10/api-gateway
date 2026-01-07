@@ -36,11 +36,13 @@ public class SecurityConfig {
                     "/api/teams/swagger-ui/**",
                     "/api/players/swagger-ui/**",
                     "/api/import/swagger-ui/**",
+                    "/api/users/swagger-ui/**",
 
                     "/api/leagues/v3/api-docs/**",
                     "/api/teams/v3/api-docs/**",
                     "/api/players/v3/api-docs/**",
-                    "/api/import/v3/api-docs/**"
+                    "/api/import/v3/api-docs/**",
+                    "/api/users/v3/api-docs/**"
                 ).permitAll()
                 .anyExchange().authenticated()
             )

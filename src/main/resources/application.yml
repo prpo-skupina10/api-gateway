@@ -35,6 +35,13 @@ spring:
             - Path=/api/import/swagger-ui/**,/api/import/v3/api-docs/**
           filters:
             - StripPrefix=2
+          
+        - id: user-swagger
+          uri: http://user-service:8089
+          predicates:
+            - Path=/api/users/swagger-ui/**,/api/users/v3/api-docs/**
+          filters:
+            - StripPrefix=2
 
         - id: user-service-auth
           uri: http://user-service:8089
