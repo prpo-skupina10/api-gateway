@@ -1,0 +1,76 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-service-auth
+          uri: http://user-service:8089
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=1
+
+        - id: user-service-users
+          uri: http://user-service:8089
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=1
+
+        - id: player-service
+          uri: http://player-service:8082
+          predicates:
+            - Path=/api/players/**
+          filters:
+            - StripPrefix=1
+
+        - id: team-service
+          uri: http://team-service:8084
+          predicates:
+            - Path=/api/teams/**
+          filters:
+            - StripPrefix=1
+
+        - id: league-service
+          uri: http://league-service:8081
+          predicates:
+            - Path=/api/leagues/**
+          filters:
+            - StripPrefix=1
+
+        - id: visualization-docs
+          uri: http://visualization-service:8000
+          predicates:
+            - Path=/api/charts/docs,/api/charts/redoc,/api/charts/openapi.json
+          filters:
+            - StripPrefix=2
+
+        - id: visualization-static
+          uri: http://visualization-service:8000
+          predicates:
+            - Path=/api/charts/static/**
+          filters:
+            - StripPrefix=2
+
+        - id: visualization-health
+          uri: http://visualization-service:8000
+          predicates:
+            - Path=/api/charts/health
+          filters:
+            - StripPrefix=2
+
+        - id: visualization-api
+          uri: http://visualization-service:8000
+          predicates:
+            - Path=/api/charts/**
+          filters:
+            - StripPrefix=1
+
+        - id: data-import-service
+          uri: http://data-import-service:8085
+          predicates:
+            - Path=/api/import/**
+          filters:
+            - StripPrefix=1
