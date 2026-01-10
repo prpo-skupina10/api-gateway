@@ -15,8 +15,23 @@ management:
 spring:
   cloud:
     gateway:
-      routes:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowedCredentials: true
 
+      routes:
+        # SWAGGER
         - id: league-swagger
           uri: http://league-service:8081
           predicates:
@@ -43,6 +58,49 @@ spring:
           uri: http://data-import-service:8085
           predicates:
             - Path=/api/import/swagger-ui/**,/api/import/v3/api-docs/**
+          filters:
+            - StripPrefix=2
+          
+        - id: user-swagger
+          uri: http://user-service:8089
+          predicates:
+            - Path=/api/users/swagger-ui/**,/api/users/v3/api-docs/**
+          filters:
+            - StripPrefix=2
+
+        # HEALTH CHECK
+        - id: user-health
+          uri: http://user-service:8089
+          predicates:
+            - Path=/api/users/health
+          filters:
+            - StripPrefix=2
+
+        - id: player-health
+          uri: http://player-service:8082
+          predicates:
+            - Path=/api/players/health
+          filters:
+            - StripPrefix=2
+
+        - id: team-health
+          uri: http://team-service:8084
+          predicates:
+            - Path=/api/teams/health
+          filters:
+            - StripPrefix=2
+
+        - id: league-health
+          uri: http://league-service:8081
+          predicates:
+            - Path=/api/leagues/health
+          filters:
+            - StripPrefix=2
+
+        - id: import-health
+          uri: http://data-import-service:8085
+          predicates:
+            - Path=/api/import/health
           filters:
             - StripPrefix=2
 
@@ -79,7 +137,7 @@ spring:
           predicates:
             - Path=/api/leagues/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=2
 
         - id: data-import-service
           uri: http://data-import-service:8085
@@ -99,8 +157,6 @@ spring:
           uri: http://visualization-service:8000
           predicates:
             - Path=/api/charts/static/**
-          filters:
-            - StripPrefix=2
 
         - id: visualization-health
           uri: http://visualization-service:8000
@@ -114,4 +170,4 @@ spring:
           predicates:
             - Path=/api/charts/**
           filters:
-            - StripPrefix=1
+            - StripPrefix=2
