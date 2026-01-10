@@ -32,6 +32,10 @@ public class SecurityConfig {
                     "/api/charts/static/**"
                 ).permitAll()
                 .pathMatchers(
+    "/actuator/health",
+                    "/actuator/info"
+                ).permitAll()
+                .pathMatchers(
                     "/api/leagues/swagger-ui/**",
                     "/api/teams/swagger-ui/**",
                     "/api/players/swagger-ui/**",
