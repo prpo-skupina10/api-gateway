@@ -20,6 +20,7 @@ spring:
           '[/**]':
             allowedOrigins:
               - "http://localhost:4200"
+              - "http://136.110.176.104"
             allowedMethods:
               - GET
               - POST
@@ -157,6 +158,9 @@ spring:
           uri: http://visualization-service:8000
           predicates:
             - Path=/api/charts/static/**
+          filters:
+            - StripPrefix=2
+
 
         - id: visualization-health
           uri: http://visualization-service:8000
