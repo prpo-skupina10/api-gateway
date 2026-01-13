@@ -69,6 +69,27 @@ spring:
           filters:
             - StripPrefix=2
 
+        - id: import-betting-swagger
+          uri: http://data-import-betting-service:8091
+          predicates:
+            - Path=/api/import-betting/swagger-ui/**,/api/import-betting/v3/api-docs/**
+          filters:
+            - StripPrefix=2
+
+        - id: odds-swagger
+          uri: http://odds-service:8092
+          predicates:
+            - Path=/api/odds/swagger-ui/**,/api/odds/v3/api-docs/**
+          filters:
+            - StripPrefix=2
+
+        - id: betting-swagger
+          uri: http://betting-service:8093
+          predicates:
+            - Path=/api/betting/swagger-ui/**,/api/betting/v3/api-docs/**
+          filters:
+            - StripPrefix=2
+
         # HEALTH CHECK
         - id: user-health
           uri: http://user-service:8089
@@ -102,6 +123,27 @@ spring:
           uri: http://data-import-service:8085
           predicates:
             - Path=/api/import/health
+          filters:
+            - StripPrefix=2
+
+        - id: import-betting-health
+          uri: http://data-import-betting-service:8091
+          predicates:
+            - Path=/api/import-betting/health
+          filters:
+            - StripPrefix=2
+
+        - id: odds-health
+          uri: http://odds-service:8092
+          predicates:
+            - Path=/api/odds/health
+          filters:
+            - StripPrefix=2
+
+        - id: betting-health
+          uri: http://betting-service:8093
+          predicates:
+            - Path=/api/betting/health
           filters:
             - StripPrefix=2
 
@@ -144,6 +186,27 @@ spring:
           uri: http://data-import-service:8085
           predicates:
             - Path=/api/import/**
+          filters:
+            - StripPrefix=1
+
+        - id: data-import-betting-service
+          uri: http://data-import-betting-service:8091
+          predicates:
+            - Path=/api/import-betting/**
+          filters:
+            - StripPrefix=1
+
+        - id: odds-service
+          uri: http://odds-service:8092
+          predicates:
+            - Path=/api/odds/**
+          filters:
+            - StripPrefix=1
+
+        - id: betting-service
+          uri: http://betting-service:8093
+          predicates:
+            - Path=/api/betting/**
           filters:
             - StripPrefix=1
 
