@@ -43,12 +43,18 @@ public class SecurityConfig {
                     "/api/players/swagger-ui/**",
                     "/api/import/swagger-ui/**",
                     "/api/users/swagger-ui/**",
+                    "/api/import-betting/swagger-ui/**",
+                    "/api/odds/swagger-ui/**",
+                    "/api/betting/swagger-ui/**",
 
                     "/api/leagues/v3/api-docs/**",
                     "/api/teams/v3/api-docs/**",
                     "/api/players/v3/api-docs/**",
                     "/api/import/v3/api-docs/**",
-                    "/api/users/v3/api-docs/**"
+                    "/api/users/v3/api-docs/**",
+                    "/api/import-betting/v3/api-docs/**",
+                    "/api/odds/v3/api-docs/**",
+                    "/api/betting/v3/api-docs/**"
                 ).permitAll()
                 .pathMatchers(
                     "/api/users/health",
@@ -56,7 +62,15 @@ public class SecurityConfig {
                     "/api/teams/health",
                     "/api/leagues/health",
                     "/api/import/health",
+                    "/api/import-betting/health",
+                    "/api/odds/health",
+                    "/api/betting/health",
                     "/health"
+                ).permitAll()
+                .pathMatchers(
+                    "/api/odds/**",
+                    "/api/betting/**",
+                    "/api/import-betting/**"
                 ).permitAll()
                 .anyExchange().authenticated()
             )
